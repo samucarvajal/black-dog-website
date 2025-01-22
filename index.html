@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poster Editor</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="fonts.js"></script>
+  <script src="templates.js"></script>
+</head>
+<body>
+  <div class="editor-container">
+    <!-- Poster Preview Section -->
+    <div class="preview-section">
+      <!-- Format Selection Buttons -->
+      <div class="format-buttons">
+        <button class="format-button active" data-format="square">Square</button>
+        <button class="format-button" data-format="post">Post</button>
+        <button class="format-button" data-format="story">Story</button>
+      </div>
+
+      <!-- Preview Container with black background -->
+      <div class="preview-container">
+        <div class="poster">
+          <!-- Background Image -->
+          <img src="assets/square/image-bg.png" alt="Background" class="background" id="bgImage">
+
+          <!-- Overlay Layers -->
+          <img src="assets/square/image-bd.png" alt="Layer 1" class="layer">
+          <img src="assets/square/image.svg" alt="Layer 2" class="layer">
+
+          <!-- Editable Text SVG will be inserted here -->
+          <div id="svg-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Controls -->
+    <div class="controls">
+      <div class="input-group">
+        <label for="date-input">Date</label>
+        <input type="text" id="date-input" maxlength="12" placeholder="DAY 00 MON">
+        <span class="helper-text">Use 3 letters for day and month (e.g., MON 01 JAN)</span>
+      </div>
+      
+      <div class="input-group">
+        <label for="line1-input">Venue & Address</label>
+        <input type="text" id="line1-input" maxlength="55" placeholder="Venue Name / Address and Number, City">
+        <span class="helper-text">Include venue name, address, and city</span>
+      </div>
+      
+      <div class="input-group">
+        <label for="line2-input">Show Details</label>
+        <input type="text" id="line2-input" maxlength="55" placeholder="Ticket Price / Show Time">
+        <span class="helper-text">Add ticket price and show time</span>
+      </div>
+      
+      <div class="input-group">
+        <label for="line3-input">Additional Information (Optional)</label>
+        <input type="text" id="line3-input" maxlength="55" placeholder="Additional Information">
+        <span class="helper-text">Any other important details</span>
+      </div>
+
+      <div class="input-group">
+        <label>Background Color</label>
+        <div class="color-options">
+          <div class="color-option">
+            <input type="radio" name="background" id="bg-1" value="image-bg.png" checked>
+            <label for="bg-1" class="color-swatch" style="background-color: #1B2C54;"></label>
+          </div>
+          <div class="color-option">
+            <input type="radio" name="background" id="bg-2" value="image-bg-2.png">
+            <label for="bg-2" class="color-swatch" style="background-color: #541B1B;"></label>
+          </div>
+          <div class="color-option">
+            <input type="radio" name="background" id="bg-3" value="image-bg-3.png">
+            <label for="bg-3" class="color-swatch" style="background-color: #2C541B;"></label>
+          </div>
+          <div class="color-option">
+            <input type="radio" name="background" id="bg-4" value="image-bg-4.png">
+            <label for="bg-4" class="color-swatch" style="background-color: #541B54;"></label>
+          </div>
+        </div>
+      </div>
+      
+      <button id="download-btn">Download Poster</button>
+    </div>
+  </div>
+
+  <script>
+    // Load fonts and initialize
+    async function initializePage() {
+      try {
+        // Add font-face rules to document
+        const style = document.createElement('style');
+        style.textContent = `
+          @font-face {
+            font-family: 'Helvetica Neue LT Pro Bold Extended';
+            src: url('data:application/x-font-woff2;base64,${fonts.helveticaNeueBoldExtended}') format('woff2');
+            font-display: block;
+          }
+          @font-face {
+            font-family: 'Helvetica Neue LT Pro Condensed';
+            src: url('data:application/x-font-woff2;base64,${fonts.helveticaNeueCondensed}') format('woff2');
+            font-display: block;
+          }
+        `;
+        document.head.appendChild(style);
+
+        // Load fonts explicitly
+        const fontFamilies = [
+          new FontFace('Helvetica Neue LT Pro Bold Extended', `url(data:application/x-font-woff2;base64,${fonts.helveticaNeueBoldExtended})`),
+          new FontFace('Helvetica Neue LT Pro Condensed', `url(data:application/x-font-woff2;base64,${fonts.helveticaNeueCondensed})`)
+        ];
+
+        const loadedFonts = await Promise.all(fontFamilies.map(font => font.load()));
+        loadedFonts.forEach(font => document.fonts.add(font));
+        
+        // Wait for fonts to be ready
+        await document.fonts.ready;
+
+        // Insert SVG template after fonts are loaded
+        document.getElementById('svg-container').innerHTML = posterTemplates.square;
+      } catch (error) {
+        console.error('Font loading failed:', error);
+      }
+    }
+
+    // Initialize when page loads
+    window.addEventListener('load', initializePage);
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
