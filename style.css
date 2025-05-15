@@ -189,6 +189,65 @@ input::placeholder {
   line-height: 1.4;
 }
 
+/* Logo Upload Styles */
+#logo-upload {
+  background-color: #333;
+  border: 2px dashed #666;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+#logo-upload:hover {
+  border-color: #a17425;
+}
+
+.logo-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.logo-button {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  color: white;
+  background-color: #333;
+  border: 1px solid #444;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logo-button:hover {
+  background-color: #444;
+  border-color: #a17425;
+}
+
+/* Logo Element */
+#logo-element {
+  position: absolute;
+  cursor: move;
+  max-width: 40%;
+  max-height: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.resize-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #a17425;
+  border-radius: 50%;
+  bottom: -10px;
+  right: -10px;
+  cursor: nwse-resize;
+  z-index: 11;
+}
+
 /* Color Selection */
 .color-options {
   display: flex;
