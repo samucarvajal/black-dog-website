@@ -209,7 +209,7 @@ document.getElementById("download-btn").addEventListener("click", async () => {
         
         const svgData = new XMLSerializer().serializeToString(svgElement);
         
-        // Use inline base64-encoded fonts in SVG
+        // Add font declarations to SVG
         const svgWithFonts = svgData.replace(
             '<style id="fontStyles">',
             `<style id="fontStyles">
@@ -223,12 +223,15 @@ document.getElementById("download-btn").addEventListener("click", async () => {
                 }
             `
         );
-        
+
         const svgImage = new Image();
         await new Promise((resolve, reject) => {
             svgImage.onload = resolve;
             svgImage.onerror = reject;
-            svgImage.src = "data:image/svg+xml;base64," + btoa(svgWithFonts);
+            const encodedSvg = encodeURIComponent(svgWithFonts)
+                .replace(/'/g, '%27')
+                .replace(/"/g, '%22');
+            svgImage.src = `data:image/svg+xml;charset=utf-8,${encodedSvg}`;
         });
         
         ctx.drawImage(svgImage, 0, 0, canvas.width, canvas.height);
