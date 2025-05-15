@@ -10,7 +10,7 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   background-color: #1a1a1a;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,25 +19,23 @@ body {
 /* Editor Container */
 .editor-container {
   display: flex;
-  gap: 2rem;
+  gap: 1.25rem;
   align-items: flex-start;
-  width: 100%;
-  max-width: 1400px;
+  width: fit-content;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: #232323;
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: calc(100vh - 4rem);
+  min-height: 100%;
 }
 
 /* Preview Section */
 .preview-section {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  height: 100%;
-  flex-grow: 1;
+  gap: 0.75rem;
+  height: calc(100vh - 6rem);
 }
 
 /* Format Selection Buttons */
@@ -45,9 +43,8 @@ body {
   display: flex;
   gap: 0.5rem;
   width: 100%;
-  max-width: calc(100vh - 200px); /* Match the maximum square size */
+  max-width: min(calc(100vh - 8rem), 100%);
   margin: 0 auto;
-  padding: 0;
 }
 
 .format-button {
@@ -79,41 +76,42 @@ body {
 
 /* Preview Container */
 .preview-container {
-  flex: 1;
+  aspect-ratio: 1 / 1;
+  background-color: #1c1c1c;
+  border-radius: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100% - 3rem);
-  min-height: 0;
-  padding: 0.5rem;
+  width: min(calc(100vh - 8rem), 100%);
+  height: min(calc(100vh - 8rem), 100%);
 }
 
 /* Poster Section */
 .poster {
-  height: 100%;
-  aspect-ratio: 1 / 1;
   position: relative;
-  background-color: #000;
+  height: 100%;
+  width: 100%;
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  margin: auto;
 }
 
 .poster.format-post {
+  height: 100%;
   width: auto;
   aspect-ratio: 1080 / 1350;
 }
 
 .poster.format-story {
+  height: 100%;
   width: auto;
   aspect-ratio: 1080 / 1920;
 }
 
 .poster.format-square {
-  width: auto;
-  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: 100%;
 }
 
 .background, .layer {
@@ -145,11 +143,9 @@ body {
 .controls {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  width: 300px;
-  min-width: 300px;
-  height: 100%;
-  overflow-y: auto;
+  gap: 0.75rem;
+  width: 320px;
+  padding: 0 0.25rem;
 }
 
 .input-group {
@@ -173,6 +169,7 @@ input {
   background-color: #2c2c2c;
   color: white;
   transition: all 0.2s ease;
+  width: 100%;
 }
 
 input:focus {
@@ -195,8 +192,9 @@ input::placeholder {
 /* Color Selection */
 .color-options {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   margin-top: 0.5rem;
+  padding: 0 0.25rem;
 }
 
 .color-option {
@@ -218,6 +216,7 @@ input::placeholder {
   cursor: pointer;
   border: 2px solid #333;
   transition: all 0.2s ease;
+  overflow: hidden;
 }
 
 .color-option input[type="radio"]:checked + .color-swatch {
@@ -231,8 +230,8 @@ input::placeholder {
 }
 
 button#download-btn {
-  margin-top: 0.5rem;
-  padding: 1rem 1.5rem;
+  margin-top: 0.25rem;
+  padding: 0.75rem 1rem;
   font-size: 1rem;
   font-weight: 600;
   color: white;
@@ -242,6 +241,7 @@ button#download-btn {
   cursor: pointer;
   transition: all 0.2s ease;
   letter-spacing: 0.5px;
+  width: 100%;
 }
 
 button#download-btn:hover {
@@ -253,70 +253,39 @@ button#download-btn:active {
   transform: translateY(0);
 }
 
-/* Scrollbar Styling */
-.controls::-webkit-scrollbar {
-  width: 8px;
-}
-
-.controls::-webkit-scrollbar-track {
-  background: #2c2c2c;
-  border-radius: 4px;
-}
-
-.controls::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 4px;
-}
-
-.controls::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
 /* Responsive Design */
-@media (max-width: 1024px) {
-  .editor-container {
-    gap: 1.5rem;
-    padding: 1.5rem;
-  }
-  
-  .controls {
-    width: 280px;
-    min-width: 280px;
-  }
-}
-
 @media (max-width: 768px) {
   body {
-    padding: 1rem;
+    padding: 0;
+    min-height: 100%;
   }
   
   .editor-container {
     flex-direction: column;
     align-items: center;
-    height: auto;
+    width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
   }
 
   .preview-section {
     width: 100%;
     height: auto;
-    aspect-ratio: 1 / 1;
-  }
-
-  .preview-container {
-    height: 100%;
+    padding: 1rem;
   }
 
   .controls {
     width: 100%;
-    max-height: none;
+    max-width: 400px;
+    padding: 0 1rem;
+  }
+
+  .preview-container {
+    max-width: 500px;
   }
 }
 
 @media (max-width: 480px) {
-  body {
-    padding: 0.5rem;
-  }
-  
   .editor-container {
     padding: 1rem;
   }
